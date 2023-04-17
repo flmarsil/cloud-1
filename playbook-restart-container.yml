@@ -1,0 +1,11 @@
+---
+- name: Restart a specific container on remote server
+  hosts: all
+  remote_user: root
+  vars:
+    container_name: nginx
+  tasks:
+    - name: Restart X container 
+      become: yes
+      become_user: root 
+      shell: docker compose -f /app/docker-compose.yml --env-file /app/.env restart {{ container_name }}

@@ -1,0 +1,27 @@
+- name: Add ansible user on remote server
+  hosts: all
+  remote_user: root
+  tags: add_user
+  roles:
+    - add_user
+
+- name: Add controller sshkey on remote server
+  hosts: all
+  remote_user: root
+  tags: add_sshkey
+  roles:
+    - add_sshkey
+
+- name: Install docker on remote server
+  hosts: all
+  remote_user: ansible
+  tags: install_docker
+  roles:
+    - install_docker
+
+- name: Deploy web application on remote server
+  hosts: all
+  remote_user: ansible
+  tags: install_webapp
+  roles:
+    - install_webapp

@@ -1,0 +1,4 @@
+---
+user_ansible: ansible
+user_comment: Ansible admin account
+user_shell: /bin/bash

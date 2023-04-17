@@ -1,0 +1,6 @@
+---
+- include_tasks: main/00_copy_webapp_files.yml
+- include_tasks: main/01_bind_volumes.yml
+- include_tasks: main/02_docker_down.yml
+- include_tasks: main/03_deploy_app.yml
+- include_tasks: main/04_reboot_option.yml

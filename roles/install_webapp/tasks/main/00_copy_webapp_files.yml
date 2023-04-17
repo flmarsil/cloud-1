@@ -1,0 +1,40 @@
+---
+- name: Create app directory if not exists
+  become: yes
+  become_user: root
+  file:
+    path: "/app"
+    state: directory
+    owner: "{{ user_ansible }}"
+
+- name: Copy webapp files on remote server
+  synchronize:
+    src: "files/app/"
+    dest: "/app"
+    delete: yes
+
+- name: Copy service file on remote server
+  become: yes
+  become_user: root
+  synchronize:
+    src: "files/cloud-1-web-app.service"
+    dest: "/etc/systemd/system/cloud-1-web-app.service"
+    delete: yes
+    
+- name: Get public IP address of current remote server
+  command: curl ifconfig.me
+  register: public_ip
+
+- name: Update DOMAIN_NAME in .env
+  replace:
+    path: /app/.env
+    regexp: 'DOMAIN_NAME=.*'
+    replace: 'DOMAIN_NAME={{ public_ip.stdout }}'
+
+- name: Update server_name in default.conf for Nginx
+  become: true
+  command: sed -i 's/server_name\t\$DOMAIN_NAME;/server_name\t{{ public_ip.stdout }};/g' /app/requirements/nginx/conf/default.conf
+  
+
+# TODO
+# decrypt .env file directly in the task

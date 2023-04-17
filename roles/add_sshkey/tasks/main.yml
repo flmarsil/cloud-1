@@ -1,0 +1,23 @@
+---
+- name: Create .ssh directory if not exists
+  file:
+    path: "/home/{{ user_ansible }}/.ssh"
+    state: directory
+    owner: "{{ user_ansible }}"
+    group: "{{ user_ansible }}"
+    mode: 0700
+
+- name: Update authorized_keys file with sshkey or create it if not exists
+  blockinfile:
+    path: "/home/{{ user_ansible }}/.ssh/authorized_keys"
+    block: "{{ public_key }}"
+    owner: "{{ user_ansible }}"
+    group: "{{ user_ansible }}"
+    create: true
+    mode: 0600
+
+- name: Restart ssh
+  service:
+    name: sshd
+    state: restarted
+    enabled: true

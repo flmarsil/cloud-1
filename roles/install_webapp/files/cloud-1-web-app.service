@@ -1,0 +1,13 @@
+[Install]
+WantedBy=multi-user.target
+
+[Unit]
+Description=Cloud 1 Webapp Service
+After=network-online.target docker.service
+Requires=network-online.target docker.service
+StartLimitIntervalSec=10
+
+[Service]
+Restart=on-failure
+RestartSec=5s
+ExecStart=docker compose -f /app/docker-compose.yml --env-file /app/.env up --force-recreate --build -d

@@ -1,0 +1,11 @@
+---
+- name: Add new user
+  user:
+    name: "{{ user_ansible }}"
+    comment: "{{ user_comment }}"
+    shell: "{{ user_shell }}"
+
+- name: Copy ansible file to the server for sudo access
+  copy:
+    src: "ansible"
+    dest: "/etc/sudoers.d/"

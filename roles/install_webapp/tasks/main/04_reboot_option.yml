@@ -1,0 +1,5 @@
+---
+- name: Create web app service on remote server to auto start after system reboot
+  become: yes
+  become_user: root 
+  shell: sudo systemctl daemon-reload && sudo systemctl enable {{ service_file }} && sudo systemctl start {{ service_file }}

@@ -1,0 +1,5 @@
+---
+- name: Deploy wep app 
+  become: yes
+  become_user: root 
+  shell: docker compose -f /app/docker-compose.yml --env-file /app/.env up --force-recreate --build -d

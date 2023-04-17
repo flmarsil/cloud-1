@@ -1,0 +1,8 @@
+---
+- name : Stop current web app if running 
+  become: yes
+  become_user: root
+  shell: docker compose -f /app/docker-compose.yml --env-file /app/.env down
+
+# TODO: 
+# Create an option via an environment variable to delete all linked volumes, and delete the cache, images, container ... etc

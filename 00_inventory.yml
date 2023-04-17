@@ -1,0 +1,6 @@
+all:
+  hosts:
+    212.227.13.69:
+    212.227.188.154:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
